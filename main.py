@@ -140,14 +140,85 @@ async def action(update, context, text, a, b):
 
     await update.message.reply_text(f"💞 You {text} (+{pts} pts)")
 
-async def kiss(update, context):
-    await action(update, context, "kissed 😘", 10, 20)
 
-async def hug(update, context):
-    await action(update, context, "hugged 🤗", 5, 15)
 
-async def holdhand(update, context):
-    await action(update, context, "held hands 🤝", 3, 10)
+    if is_on_cooldown(user, "kiss"):
+        mins = remaining_time(user, "kiss")
+        await update.message.reply_text(f"⏳ Kiss cooldown! Try again in {mins} min.")
+        return
+
+    earned = random.randint(5, 10)
+    wait = random.randint(10, 25) * 60
+
+    add_points(user, earned)
+    add_points(partner, earned)
+
+    cooldowns[(user, "kiss")] = time.time() + wait
+    cooldowns[(partner, "kiss")] = time.time() + wait
+
+    await update.message.reply_text(
+        f"💋 Kiss successful!\n"
+        f"You and your partner earned ❤️ {earned} points each.\n"
+        f"Next kiss in {wait//60} min."
+    )
+
+async def hug(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user.id
+    partner = get_partner(user)
+
+    if not partner:
+        await update.message.reply_text("❌ You don’t have a partner.")
+        return
+
+    if is_on_cooldown(user, "hug"):
+        mins = remaining_time(user, "hug")
+        await update.message.reply_text(f"⏳ Hug cooldown! Try again in {mins} min.")
+        return
+
+    earned = random.randint(10, 20)
+    wait = random.randint(30, 60) * 60
+
+    add_points(user, earned)
+    add_points(partner, earned)
+
+    cooldowns[(user, "hug")] = time.time() + wait
+    cooldowns[(partner, "hug")] = time.time() + wait
+
+    await update.message.reply_text(
+        f"🤗 Hug time!\n"
+        f"You and your partner earned ❤️ {earned} points each.\n"
+        f"Next hug in {wait//60} min."
+    )
+
+async def holdhand(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user.id
+    partner = get_partner(user)
+
+    if not partner:
+        await update.message.reply_text("❌ You don’t have a partner.")
+        return
+
+    if is_on_cooldown(user, "holdhand"):
+        mins = remaining_time(user, "holdhand")
+        await update.message.reply_text(f"⏳ Hold-hand cooldown! Try again in {mins} min.")
+        return
+
+    earned = random.randint(1, 5)
+    wait = random.randint(5, 10) * 60
+
+    add_points(user, earned)
+    add_points(partner, earned)
+
+    cooldowns[(user, "holdhand")] = time.time() + wait
+    cooldowns[(partner, "holdhand")] = time.time() + wait
+
+    await update.message.reply_text(
+        f"🤝 Holding hands!\n"
+        f"You and your partner earned ❤️ {earned} points each.\n"
+        f"Next hold in {wait//60} min."
+    )
+
+
 
 async def mylove(update, context):
     user = get_user(update.message.from_user.id)
