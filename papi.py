@@ -175,7 +175,7 @@ async def escalate_poison():
             }
             await bot.send_message(main_group_id,
                                    f" Zone {zone} has become poisonous! Damage: {poison_damage}/5 sec"
-    
+                                  )
   async def start_game(update, context):
     global lobby, current_game
     if current_game.get("running"):
@@ -719,4 +719,5 @@ if __name__ == "__main__":
     print(" Bot is starting...")
 
     app.run_polling()
+
 
