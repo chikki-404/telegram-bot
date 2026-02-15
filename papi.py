@@ -28,7 +28,7 @@ def start_http_server():
 
 threading.Thread(target=start_http_server, daemon=True).start()
 
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+BOT_TOKEN = "8329370399:AAEpImVot04S4OofAYzximVEcEAkPWJ_7ws"
 ADMIN_IDS = [7800914151, 6606949931, 7122295702]
 
 app = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -69,36 +69,36 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     help_text = (
-        " **Battleground Survival – Commands List** \n\n"
+        " **Battleground Survival â€“ Commands List** \n\n"
         " **Short Game Description:**\n"
         "Survive in zones, collect weapons & shields, heal, fight opponents, open dungeons & claim rare airdrops. Tactical long fights! \n\n"
         " **Player Commands:**\n"
-        "/start_game <time> – Start lobby\n"
-        "/join – Join lobby\n"
-        "/extend – Extend join time\n"
-        "/force_start – Admin: start lobby immediately\n"
-        "/cancel_game – Cancel current lobby/game\n"
-        "/myprofile – Show stats\n"
-        "/inventory – Check items\n"
-        "/map – View zones & dungeons\n"
-        "/leaderboard – Check top killers & survival\n"
-        "/travel <zone> – Move to zone\n"
-        "/airdrop – Summon airdrop\n"
-        "/claim – Claim airdrop reward\n"
-        "/open – Open dungeon with key\n"
-        "/search – Find weapons, shields, healing items\n"
-        "/select <weapon> – Choose weapon\n"
-        "/equip <shield> – Equip shield\n"
-        "/use <item> – Use healing/combat item\n"
-        "/kill <@player> – Attack opponent in same zone\n"
-        "/hp – Check HP & shield\n"
-        "/impact <zone> – Meteor Impact if owned\n\n"
+        "/start_game <time> â€“ Start lobby\n"
+        "/join â€“ Join lobby\n"
+        "/extend â€“ Extend join time\n"
+        "/force_start â€“ Admin: start lobby immediately\n"
+        "/cancel_game â€“ Cancel current lobby/game\n"
+        "/myprofile â€“ Show stats\n"
+        "/inventory â€“ Check items\n"
+        "/map â€“ View zones & dungeons\n"
+        "/leaderboard â€“ Check top killers & survival\n"
+        "/travel <zone> â€“ Move to zone\n"
+        "/airdrop â€“ Summon airdrop\n"
+        "/claim â€“ Claim airdrop reward\n"
+        "/open â€“ Open dungeon with key\n"
+        "/search â€“ Find weapons, shields, healing items\n"
+        "/select <weapon> â€“ Choose weapon\n"
+        "/equip <shield> â€“ Equip shield\n"
+        "/use <item> â€“ Use healing/combat item\n"
+        "/kill <@player> â€“ Attack opponent in same zone\n"
+        "/hp â€“ Check HP & shield\n"
+        "/impact <zone> â€“ Meteor Impact if owned\n\n"
         " **Admin Commands:**\n"
-        "/reset <user_id> – Reset a player\n"
-        "/reset all – Reset whole game\n"
-        "/restart – Reconnect bot\n"
-        "/add_item <item> – Add item to player\n"
-        "/set_time <minutes> – Set game duration"
+        "/reset <user_id> â€“ Reset a player\n"
+        "/reset all â€“ Reset whole game\n"
+        "/restart â€“ Reconnect bot\n"
+        "/add_item <item> â€“ Add item to player\n"
+        "/set_time <minutes> â€“ Set game duration"
     )
     await update.message.reply_text(help_text, parse_mode="Markdown")
     
@@ -273,7 +273,7 @@ async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not inv:
         await update.message.reply_text("Your inventory is empty! ")
         return
-    inv_text = "\n".join([f"• {item}" for item in inv])
+    inv_text = "\n".join([f"â€¢ {item}" for item in inv])
     await update.message.reply_text(f" **Inventory:**\n{inv_text}", parse_mode="Markdown")
     
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -629,12 +629,12 @@ async def myprofile(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f" **Your Profile:**\n"
-        f"• ID: {user_id}\n"
-        f"• Zone: {zone}\n"
-        f"• HP: {hp}/20 | Shield: {shield}\n"
-        f"• Kills: {kills}\n"
-        f"• Coins: {coins}\n"
-        f"• Games Played: {total_games}",
+        f"â€¢ ID: {user_id}\n"
+        f"â€¢ Zone: {zone}\n"
+        f"â€¢ HP: {hp}/20 | Shield: {shield}\n"
+        f"â€¢ Kills: {kills}\n"
+        f"â€¢ Coins: {coins}\n"
+        f"â€¢ Games Played: {total_games}",
         parse_mode="Markdown"
     )
     
@@ -658,7 +658,7 @@ async def map(update, context):
 
     text = " **Current Zone Map:**\n"
     for z, uids in zone_map.items():
-        text += f"• Zone {z}: {len(uids)} player(s)\n"
+        text += f"â€¢ Zone {z}: {len(uids)} player(s)\n"
         if z in dungeon_zones:
             text += "   Dungeon present\n"
         if z in airdrops:
@@ -717,4 +717,5 @@ app.add_handler(CommandHandler("backup", backup))
 
 if __name__ == "__main__":
     print(" Bot is starting...")
+
     app.run_polling()
